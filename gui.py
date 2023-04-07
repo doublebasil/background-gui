@@ -1,5 +1,7 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow, QGridLayout, QHBoxLayout, QLabel, QVBoxLayout, QGroupBox
 from PyQt6.QtGui import QPixmap
+from PyQt6 import QtCore
+import os
 import sys
 
 class GUI(QWidget):
@@ -14,6 +16,8 @@ class GUI(QWidget):
         ## create image view window
         self.imageLabel = QLabel()
         self.mainLayout.addWidget(self.imageLabel)
+        self.setImage(self.imageLabel, os.path.join(os.getcwd(),"test_image.jpg"))
+        # self.imageLabel.resize(200, 200)
 
         ## create side menu
         self.sideMenu = QGroupBox()
@@ -23,6 +27,13 @@ class GUI(QWidget):
 
         testButton = QPushButton(text="button")
         self.sideMenuLayout.addWidget(testButton)
+
+        self.resize(100, 100)
+
+    def setImage(self, label, imagePath):
+        pixmap = QPixmap(imagePath)
+        pixmap = pixmap.scaled(400, 400, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+        label.setPixmap(pixmap)
 
 
 
